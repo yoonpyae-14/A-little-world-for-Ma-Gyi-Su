@@ -1,0 +1,1213 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#eee8ff">
+
+<title>A Little Lavender World 💜</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+
+:root {
+
+  --lavender: #e9e0ff;
+
+  --purple: #8e75c8;
+
+  --deep: #59477d;
+
+  --pale: #f8f5ff;
+
+  --pink: #f8e9f2;
+
+  --white: #fff;
+
+  --text: #514664;
+
+}
+
+* { box-sizing: border-box; }
+
+body {
+
+  margin: 0;
+
+  min-height: 100vh;
+
+  font-family: 'DM Sans', sans-serif;
+
+  color: var(--text);
+
+  background: linear-gradient(145deg, #f8f5ff, #fffaff, #ece7ff);
+
+}
+
+button, input { font: inherit; }
+
+button {
+
+  cursor: pointer;
+
+  border: none;
+
+  transition: transform .2s, opacity .2s;
+
+}
+
+button:hover { transform: translateY(-2px); }
+
+button:active { transform: scale(.98); }
+
+.screen {
+
+  display: none;
+
+  min-height: 100vh;
+
+  padding: 26px 18px;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+.screen.active {
+
+  display: flex;
+
+  animation: appear .6s ease both;
+
+}
+
+.card {
+
+  width: 100%;
+
+  max-width: 480px;
+
+  padding: 28px 23px;
+
+  border-radius: 29px;
+
+  background: rgba(255,255,255,.88);
+
+  border: 1px solid white;
+
+  box-shadow: 0 18px 60px #7560a71a;
+
+  text-align: center;
+
+}
+
+.flower {
+
+  font-size: 55px;
+
+  animation: float 3s ease-in-out infinite;
+
+}
+
+h1, h2, h3 {
+
+  font-family: 'Playfair Display', serif;
+
+  font-weight: 500;
+
+  color: var(--deep);
+
+}
+
+h1 { font-size: clamp(33px, 8vw, 44px); margin: 13px 0; }
+
+h2 { font-size: 30px; margin: 12px 0; }
+
+h3 { font-size: 23px; }
+
+p { line-height: 1.8; }
+
+.eyebrow {
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: var(--purple);
+
+  text-transform: uppercase;
+
+}
+
+.muted { color: #9388a7; font-size: 13px; }
+
+input {
+
+  display: block;
+
+  width: 100%;
+
+  margin: 18px 0 12px;
+
+  padding: 15px;
+
+  border-radius: 15px;
+
+  border: 1px solid #ded3f5;
+
+  background: #fcfaff;
+
+  color: var(--deep);
+
+  text-align: center;
+
+  outline: none;
+
+}
+
+input:focus {
+
+  border-color: var(--purple);
+
+  box-shadow: 0 0 0 3px #e9e0ff;
+
+}
+
+.primary {
+
+  display: block;
+
+  width: 100%;
+
+  padding: 15px;
+
+  border-radius: 15px;
+
+  background: linear-gradient(135deg, #a48bdc, #8066bc);
+
+  color: white;
+
+  font-weight: 700;
+
+  box-shadow: 0 8px 20px #8066bc2b;
+
+}
+
+.secondary {
+
+  padding: 12px 18px;
+
+  border-radius: 14px;
+
+  background: #f0eaff;
+
+  color: var(--deep);
+
+  font-weight: 600;
+
+}
+
+.error { color: #c66d8c; font-size: 13px; min-height: 20px; }
+
+.progress-wrap {
+
+  max-width: 480px;
+
+  width: 100%;
+
+  margin: 0 auto 18px;
+
+}
+
+.progress-label {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 12px;
+
+  color: #8e7daf;
+
+  margin-bottom: 8px;
+
+}
+
+.track {
+
+  height: 6px;
+
+  background: #e8e0f7;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+}
+
+#bar {
+
+  height: 100%;
+
+  width: 0%;
+
+  background: linear-gradient(90deg, #bba7ef, #8e75c8);
+
+  transition: width .45s ease;
+
+}
+
+.screen-inner {
+
+  width: 100%;
+
+  max-width: 480px;
+
+}
+
+.screen-inner .card { margin: 0 auto; }
+
+.answers {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin: 20px 0;
+
+}
+
+.answer {
+
+  padding: 15px 9px;
+
+  border-radius: 15px;
+
+  background: #f2edff;
+
+  border: 1px solid #e6dcff;
+
+  color: #59477d;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+}
+
+.answer:nth-child(2n) {
+
+  background: #fff3fa;
+
+  border-color: #f4e1ee;
+
+}
+
+.answer.chosen {
+
+  background: #e1d5ff;
+
+  border: 2px solid #987dd3;
+
+}
+
+.answer:disabled { cursor: default; opacity: 1; }
+
+.note {
+
+  background: #f8f4ff;
+
+  border-radius: 17px;
+
+  padding: 16px;
+
+  margin: 16px 0;
+
+  line-height: 1.8;
+
+  font-size: 14px;
+
+}
+
+.song {
+
+  background: linear-gradient(145deg, #eee7ff, #fff2fa);
+
+  padding: 17px;
+
+  border-radius: 20px;
+
+}
+
+.song iframe {
+
+  display: block;
+
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  border: 0;
+
+  border-radius: 14px;
+
+  margin-top: 14px;
+
+}
+
+.letter {
+
+  white-space: pre-line;
+
+  text-align: left;
+
+  line-height: 2;
+
+  font-size: 14px;
+
+  padding: 19px;
+
+  border-radius: 17px;
+
+  background: #fcf9ff;
+
+  border: 1px solid #eee5fb;
+
+}
+
+.big-hug {
+
+  font-size: 75px;
+
+  margin: 18px;
+
+  animation: float 2.5s ease-in-out infinite;
+
+}
+
+#toast {
+
+  position: fixed;
+
+  bottom: 18px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: #59477d;
+
+  color: white;
+
+  padding: 12px 20px;
+
+  border-radius: 25px;
+
+  font-size: 13px;
+
+  z-index: 10;
+
+}
+
+footer { margin-top: 20px; color: #998cab; font-size: 12px; }
+
+@keyframes appear {
+
+  from { opacity: 0; transform: translateY(14px); }
+
+  to { opacity: 1; transform: translateY(0); }
+
+}
+
+@keyframes float {
+
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+
+  50% { transform: translateY(-8px) rotate(3deg); }
+
+}
+
+@media(max-width:360px) {
+
+  .card { padding: 23px 16px; }
+
+  .answer { font-size: 12px; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- STEP 1: NAME -->
+
+<section class="screen active" id="s1">
+
+  <div class="card">
+
+    <div class="flower">🪻</div>
+
+    <p class="eyebrow">A little world made for you</p>
+
+    <h1>Before you enter...</h1>
+
+    <p>There's a tiny surprise waiting here. But first, tell me your name. ♡</p>
+
+    <form id="nameForm">
+
+      <input id="name" placeholder="Type your name..." autocomplete="off" required>
+
+      <button class="primary" type="submit">Enter my little world ✨</button>
+
+    </form>
+
+    <p class="error" id="error"></p>
+
+    <p class="muted">A little lavender, a little love, a little happiness.</p>
+
+  </div>
+
+</section>
+
+<!-- STEP 2: WELCOME -->
+
+<section class="screen" id="s2">
+
+  <div class="screen-inner">
+
+    <div class="progress-wrap">
+
+      <div class="progress-label"><span>YOUR LITTLE JOURNEY</span><span>1 / 6</span></div>
+
+      <div class="track"><div class="bar-temp" style="width:16.6%;height:6px;background:#a48bdc;border-radius:9px"></div></div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="flower">🌷</div>
+
+      <p class="eyebrow">Welcome, Su Su San</p>
+
+      <h1>A tiny pause for you.</h1>
+
+      <p>This little place doesn't expect anything from you.</p>
+
+      <p>You don't need to be productive, cheerful, or have everything figured out.</p>
+
+      <p>For now, just be yourself. That's enough. 💜</p>
+
+      <button class="primary" onclick="go(3)">Okay, let's begin →</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- STEP 3: QUIZ -->
+
+<section class="screen" id="s3">
+
+  <div class="screen-inner">
+
+    <div class="progress-wrap">
+
+      <div class="progress-label"><span>THE SILLY QUIZ</span><span id="qStep">2 / 6</span></div>
+
+      <div class="track"><div id="bar"></div></div>
+
+    </div>
+
+    <div class="card">
+
+      <p class="eyebrow">A very unserious test 🕵🏻‍♀️</p>
+
+      <h2 id="qTitle">Question one!</h2>
+
+      <p id="qText"></p>
+
+      <div class="answers" id="answers"></div>
+
+      <div class="note hidden" id="qFeedback"></div>
+
+      <button class="primary hidden" id="qNext" onclick="nextQ()">Next question →</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- STEP 4: MOOD -->
+
+<section class="screen" id="s4">
+
+  <div class="screen-inner">
+
+    <div class="progress-wrap">
+
+      <div class="progress-label"><span>CHECK IN WITH YOURSELF</span><span>3 / 6</span></div>
+
+      <div class="track"><div style="width:50%;height:6px;background:#a48bdc;border-radius:9px"></div></div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="flower">☁️</div>
+
+      <p class="eyebrow">No wrong answers here</p>
+
+      <h2>How are you really feeling?</h2>
+
+      <p>You can choose whatever feels closest. You don't have to explain yourself.</p>
+
+      <div class="answers">
+
+        <button class="answer" onclick="chooseMood('sad')">🥺 A little sad</button>
+
+        <button class="answer" onclick="chooseMood('tired')">😮‍💨 Tired</button>
+
+        <button class="answer" onclick="chooseMood('angry')">😤 Frustrated</button>
+
+        <button class="answer" onclick="chooseMood('okay')">🌤️ Doing okay</button>
+
+        <button class="answer" onclick="chooseMood('happy')">🌷 Happy today</button>
+
+        <button class="answer" onclick="chooseMood('unknown')">🫧 Not sure</button>
+
+      </div>
+
+      <div class="note hidden" id="moodNote"></div>
+
+      <button class="primary hidden" id="moodNext" onclick="go(5)">Continue to your surprise →</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- STEP 5: COMPLIMENT -->
+
+<section class="screen" id="s5">
+
+  <div class="screen-inner">
+
+    <div class="progress-wrap">
+
+      <div class="progress-label"><span>A LITTLE SURPRISE</span><span>4 / 6</span></div>
+
+      <div class="track"><div style="width:66.6%;height:6px;background:#a48bdc;border-radius:9px"></div></div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="flower">💌</div>
+
+      <p class="eyebrow">A note from the universe</p>
+
+      <h2>Pick a little reminder.</h2>
+
+      <p>Tap the button to open your tiny surprise.</p>
+
+      <div class="note" id="compliment">Your note is waiting for you. 🪻</div>
+
+      <button class="primary" id="pickBtn" onclick="pickNote()">Open my note ✨</button>
+
+      <button class="primary hidden" id="noteNext" style="margin-top:10px" onclick="go(6)">One more little thing →</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- STEP 6: MUSIC -->
+
+<section class="screen" id="s6">
+
+  <div class="screen-inner">
+
+    <div class="progress-wrap">
+
+      <div class="progress-label"><span>A SONG FOR YOU</span><span>5 / 6</span></div>
+
+      <div class="track"><div style="width:83.3%;height:6px;background:#a48bdc;border-radius:9px"></div></div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="flower">🎧</div>
+
+      <p class="eyebrow">Take a breath</p>
+
+      <h2>A song to keep you company.</h2>
+
+      <div class="song">
+
+        <div style="font-size:40px">🌼</div>
+
+        <h3>Dandelions</h3>
+
+        <p>Ruth B.</p>
+
+        <p class="muted">You can stay here and listen for a while. There's no rush.</p>
+
+        <iframe
+
+          src="https://www.youtube-nocookie.com/embed/HRqOjhNN4hQ"
+
+          title="Dandelions by Ruth B."
+
+          loading="lazy"
+
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+
+          referrerpolicy="strict-origin-when-cross-origin"
+
+          allowfullscreen>
+
+        </iframe>
+
+        <p class="muted">Player not working?</p>
+
+        <a href="https://www.youtube.com/results?search_query=Ruth+B+Dandelions+official"
+
+           target="_blank" rel="noopener noreferrer" style="color:#8066bc;font-weight:700">
+
+          Listen on YouTube ↗
+
+        </a>
+
+      </div>
+
+      <p>Whenever you're ready, there's one last surprise. 💜</p>
+
+      <button class="primary" onclick="go(7)">Open your last surprise →</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- STEP 7: LETTER + HUG -->
+
+<section class="screen" id="s7">
+
+  <div class="screen-inner">
+
+    <div class="progress-wrap">
+
+      <div class="progress-label"><span>YOUR FINAL SURPRISE</span><span>6 / 6</span></div>
+
+      <div class="track"><div style="width:100%;height:6px;background:#a48bdc;border-radius:9px"></div></div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="flower">💜</div>
+
+      <p class="eyebrow">A letter just for you</p>
+
+      <h2>Dear Su Su San...</h2>
+
+      <div class="letter" id="letter">Hey, you. ♡
+
+I hope you're taking care of yourself, even in the little ways.
+
+Life can feel overwhelming sometimes. Some days are confusing, people can be difficult to understand, and sometimes explaining what's wrong feels like too much work.
+
+But you don't have to have everything figured out all the time. You're allowed to rest. You're allowed to have a bad day. And you're allowed to be quiet when you don't have the words.
+
+Please remember that your worth isn't measured by how much you do or how well you hide your difficult days.
+
+You're not a burden. You're my friend, and I'm genuinely glad you're here.
+
+I hope life brings you more reasons to laugh until your stomach hurts, peaceful nights, unexpected good news, and people who make you feel safe and appreciated.
+
+You deserve kindness, even on the days you find it hard to be kind to yourself.
+
+So please eat something, drink some water, rest when you need to, and take things one little step at a time.
+
+You don't have to fix your whole life today. Getting through today is enough.
+
+I'm rooting for you. Always wishing you good things. 🌷
+
+— Someone who cares about you as a friend. ♡</div>
+
+      <button class="secondary" style="margin-top:13px;width:100%" onclick="copyLetter()">Copy this letter 💌</button>
+
+      <div style="margin-top:27px">
+
+        <div class="big-hug">🐻🫂</div>
+
+        <h2>A little virtual hug.</h2>
+
+        <p>You made it to the end! I hope this tiny corner made your day a little softer.</p>
+
+        <button class="primary" onclick="hug()">Give me a hug ♡</button>
+
+        <div class="note hidden" id="hugNote"></div>
+
+      </div>
+
+      <footer>Made with care, lavender, and a little bit of sunshine. 🪻</footer>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div id="toast" class="hidden" role="status"></div>
+
+<script>
+
+const screens = [null,
+
+  document.getElementById('s1'),
+
+  document.getElementById('s2'),
+
+  document.getElementById('s3'),
+
+  document.getElementById('s4'),
+
+  document.getElementById('s5'),
+
+  document.getElementById('s6'),
+
+  document.getElementById('s7')
+
+];
+
+function go(n) {
+
+  screens.forEach((screen, index) => {
+
+    if (screen) screen.classList.toggle('active', index === n);
+
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (n === 3) renderQuestion();
+
+  sparkle();
+
+}
+
+document.getElementById('nameForm').addEventListener('submit', function(e) {
+
+  e.preventDefault();
+
+  const value = document.getElementById('name').value.trim().toLowerCase();
+
+  if (value === 'su su san') {
+
+    go(2);
+
+  } else {
+
+    document.getElementById('error').textContent =
+
+      'This little world is waiting for Su Su San. Try again. 🪻';
+
+  }
+
+});
+
+// QUIZ: answers are intentionally playful, not a test of personality.
+
+const quiz = [
+
+  {
+
+    title: 'Question 1 / 4',
+
+    q: 'If you became a potato for one day, what would you do?',
+
+    a: ['Become french fries 🍟', 'Live peacefully 🥔', 'Start a band 🎸', 'Panic dramatically 😭'],
+
+    correct: 0,
+
+    note: 'A potato with big dreams. Honestly, iconic. 🍟'
+
+  },
+
+  {
+
+    title: 'Question 2 / 4',
+
+    q: 'Your brain at 2 AM is probably...',
+
+    a: ['Planning life 📚', 'Replaying conversations 🫠', 'Making up movies 🎬', 'Already asleep 💤'],
+
+    correct: 2,
+
+    note: 'Welcome to the midnight imagination cinema. 🎬'
+
+  },
+
+  {
+
+    title: 'Question 3 / 4',
+
+    q: 'Someone says, “We need to talk.” You...',
+
+    a: ['Stay calm 😌', 'Panic inside 🫨', 'Imagine 50 scenarios 🎥', 'Ask about snacks 🍪'],
+
+    correct: 3,
+
+    note: 'Snacks first. Life decisions later. 🍪'
+
+  },
+
+  {
+
+    title: 'Question 4 / 4',
+
+    q: 'What is the official rule of a difficult day?',
+
+    a: ['Be perfect anyway', 'Never rest', 'Breathe and try again 🌱', 'Become a robot 🤖'],
+
+    correct: 2,
+
+    note: 'Correct! Being gentle with yourself counts as progress. 🌱'
+
+  }
+
+];
+
+let qi = 0;
+
+let score = 0;
+
+let hasAnswered = false;
+
+function renderQuestion() {
+
+  qi = 0;
+
+  score = 0;
+
+  drawQuestion();
+
+}
+
+function drawQuestion() {
+
+  hasAnswered = false;
+
+  const q = quiz[qi];
+
+  document.getElementById('qStep').textContent = (qi + 2) + ' / 6';
+
+  document.getElementById('bar').style.width = ((qi + 1) / quiz.length * 100) + '%';
+
+  document.getElementById('qTitle').textContent = q.title;
+
+  document.getElementById('qText').textContent = q.q;
+
+  const area = document.getElementById('answers');
+
+  area.innerHTML = '';
+
+  q.a.forEach((answer, i) => {
+
+    const btn = document.createElement('button');
+
+    btn.className = 'answer';
+
+    btn.textContent = answer;
+
+    btn.onclick = () => answerQuestion(i, btn);
+
+    area.appendChild(btn);
+
+  });
+
+  document.getElementById('qFeedback').classList.add('hidden');
+
+  document.getElementById('qNext').classList.add('hidden');
+
+}
+
+function answerQuestion(i, btn) {
+
+  if (hasAnswered) return;
+
+  hasAnswered = true;
+
+  const q = quiz[qi];
+
+  const buttons = document.querySelectorAll('#answers button');
+
+  buttons.forEach(b => b.disabled = true);
+
+  btn.classList.add('chosen');
+
+  if (i === q.correct) score++;
+
+  document.getElementById('qFeedback').textContent =
+
+    q.note + (i === q.correct ? '\n\nYou got this one! ⭐' : '\n\nThere's no wrong way to be silly. 💜');
+
+  document.getElementById('qFeedback').classList.remove('hidden');
+
+  document.getElementById('qNext').textContent =
+
+    qi === quiz.length - 1 ? 'Finish the quiz ✨' : 'Next question →';
+
+  document.getElementById('qNext').classList.remove('hidden');
+
+}
+
+function nextQ() {
+
+  qi++;
+
+  if (qi < quiz.length) {
+
+    drawQuestion();
+
+  } else {
+
+    document.getElementById('qTitle').textContent = 'Quiz completed! 🏆';
+
+    document.getElementById('qText').textContent =
+
+      'You scored ' + score + ' out of ' + quiz.length + ' — but the real prize is getting to be yourself. 💜';
+
+    document.getElementById('answers').innerHTML = '';
+
+    document.getElementById('qFeedback').textContent =
+
+      'Your official certificate: Professional Silly Person with a lovely heart. 🪻';
+
+    document.getElementById('qFeedback').classList.remove('hidden');
+
+    document.getElementById('qNext').textContent = 'Continue to your mood check →';
+
+    document.getElementById('qNext').onclick = () => {
+
+      document.getElementById('qNext').onclick = nextQ;
+
+      go(4);
+
+    };
+
+  }
+
+}
+
+// MOOD: choosing one automatically unlocks the next step.
+
+const moodMessages = {
+
+  sad: "It's okay to feel sad. You don't have to force a smile for anyone. Take your time. 🌧️",
+
+  tired: "Rest is not laziness. You deserve a break even when your to-do list isn't finished. ☁️",
+
+  angry: "You can be upset without solving everything right now. Take a breath before your next step. 🌿",
+
+  okay: "Okay is a good place to be. I hope one lovely little thing happens for you today. 🌤️",
+
+  happy: "I hope this happiness stays a little longer! You deserve moments that make you smile. 🌷",
+
+  unknown: "You don't have to name every feeling. 'I don't know' is a perfectly honest answer. 🫧"
+
+};
+
+function chooseMood(mood) {
+
+  document.getElementById('moodNote').textContent = moodMessages[mood];
+
+  document.getElementById('moodNote').classList.remove('hidden');
+
+  document.getElementById('moodNext').classList.remove('hidden');
+
+  sparkle();
+
+}
+
+// COMPLIMENT: first tap reveals note; next button advances.
+
+const notes = [
+
+  "You don't have to be the loudest person in the room to matter. 🌱",
+
+  "You deserve kindness that doesn't have to be earned. 💜",
+
+  "Your difficult days don't erase all the good things about you. ☁️",
+
+  "You are allowed to grow slowly. Flowers don't bloom all at once. 🪻",
+
+  "I hope you meet people who make being yourself feel easy. 🫶🏻",
+
+  "Even the smallest progress is still progress. Please give yourself credit. ✨",
+
+  "Some days, getting through the day is already an achievement. 🌷"
+
+];
+
+let noteIndex = -1;
+
+function pickNote() {
+
+  let next;
+
+  do {
+
+    next = Math.floor(Math.random() * notes.length);
+
+  } while (next === noteIndex && notes.length > 1);
+
+  noteIndex = next;
+
+  document.getElementById('compliment').textContent = notes[next];
+
+  document.getElementById('noteNext').classList.remove('hidden');
+
+  document.getElementById('pickBtn').textContent = 'Pick another note ♡';
+
+  sparkle();
+
+}
+
+// LETTER COPY
+
+async function copyLetter() {
+
+  const text = document.getElementById('letter').innerText;
+
+  try {
+
+    if (navigator.clipboard && window.isSecureContext) {
+
+      await navigator.clipboard.writeText(text);
+
+    } else {
+
+      const area = document.createElement('textarea');
+
+      area.value = text;
+
+      area.style.position = 'fixed';
+
+      area.style.opacity = '0';
+
+      document.body.appendChild(area);
+
+      area.select();
+
+      const ok = document.execCommand('copy');
+
+      area.remove();
+
+      if (!ok) throw new Error('Copy failed');
+
+    }
+
+    toast('Your little letter has been copied 💌');
+
+  } catch (e) {
+
+    toast('Please select and copy the letter manually 💜');
+
+  }
+
+}
+
+function hug() {
+
+  document.getElementById('hugNote').textContent =
+
+    "A big, warm hug for you. 🫂💜 You don't need to say anything back. Relax your shoulders, take a deep breath, and remember: you don't have to figure everything out today.";
+
+  document.getElementById('hugNote').classList.remove('hidden');
+
+  sparkle();
+
+}
+
+function toast(message) {
+
+  const el = document.getElementById('toast');
+
+  el.textContent = message;
+
+  el.classList.remove('hidden');
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(() => el.classList.add('hidden'), 2300);
+
+}
+
+function sparkle() {
+
+  const symbols = ['💜', '🪻', '✨', '🌷', '♡'];
+
+  for (let i = 0; i < 12; i++) {
+
+    const el = document.createElement('span');
+
+    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+    el.style.position = 'fixed';
+
+    el.style.left = Math.random() * 100 + 'vw';
+
+    el.style.top = (35 + Math.random() * 45) + 'vh';
+
+    el.style.fontSize = (14 + Math.random() * 12) + 'px';
+
+    el.style.pointerEvents = 'none';
+
+    el.style.zIndex = 20;
+
+    el.style.transition = 'all 1.2s ease';
+
+    document.body.appendChild(el);
+
+    requestAnimationFrame(() => {
+
+      el.style.opacity = '0';
+
+      el.style.transform = 'translateY(-65px) rotate(20deg)';
+
+    });
+
+    setTimeout(() => el.remove(), 1300);
+
+  }
+
+}
+
+</script>
+
+</body>
+
+</html>
